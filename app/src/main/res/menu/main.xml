@@ -3,4 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_about" android:title="@string/action_about" android:icon="@drawable/ic_info_outline_white_24px"
         android:orderInCategory="100" android:showAsAction="ifRoom" />
+    <item android:id="@+id/add_building" android:title="add" android:icon="@drawable/ic_add_white_24px"
+        android:orderInCategory="100" android:showAsAction="always" />
+<item android:id="@+id/search"
+        android:title="search"
+        android:icon="@drawable/ic_search_white_24px"
+        android:showAsAction="collapseActionView|always"
+        android:actionViewClass="android.widget.SearchView" />
+
+    <group android:id="@+id/sort_options" android:checkableBehavior="single">
+
+        <item android:id="@+id/action_sort_name_asc"
+            android:title="Sort by Name (a-z)"
+            android:checked="false" />
+        <item android:id="@+id/action_sort_name_dsc"
+            android:title="Sort by Name (z-a)"
+            android:checked="false" />
+
+
+    </group>
+
+
 </menu>

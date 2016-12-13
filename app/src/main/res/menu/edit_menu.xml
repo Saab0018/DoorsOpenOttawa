@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/saveEdit" android:title="@string/action_about" android:icon="@drawable/ic_save_white_24px"
+        android:orderInCategory="100" android:showAsAction="always" />
+    <item android:id="@+id/cancelEdit" android:title="add" android:icon="@drawable/ic_cancel_white_24px"
+        android:orderInCategory="100" android:showAsAction="always" />
+
+</menu>
