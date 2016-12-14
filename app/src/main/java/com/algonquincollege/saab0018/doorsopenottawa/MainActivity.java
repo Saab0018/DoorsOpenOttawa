@@ -12,11 +12,7 @@
 
 package com.algonquincollege.saab0018.doorsopenottawa;
 
-import com.algonquincollege.saab0018.doorsopenottawa.model.Building;
-import com.algonquincollege.saab0018.doorsopenottawa.parsers.BuildingJSONParser;
-import com.algonquincollege.saab0018.doorsopenottawa.utils.HttpManager;
-import com.algonquincollege.saab0018.doorsopenottawa.utils.HttpMethod;
-import com.algonquincollege.saab0018.doorsopenottawa.utils.RequestPackage;
+
 
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -44,7 +40,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Filter;
 
-
+import com.algonquincollege.saab0018.doorsopenottawa.model.Building;
+import com.algonquincollege.saab0018.doorsopenottawa.parsers.BuildingJSONParser;
+import com.algonquincollege.saab0018.doorsopenottawa.utils.HttpManager;
+import com.algonquincollege.saab0018.doorsopenottawa.utils.HttpMethod;
+import com.algonquincollege.saab0018.doorsopenottawa.utils.RequestPackage;
 /**
  * Sending POST parameters in JSON format.
  *

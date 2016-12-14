@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
 import com.algonquincollege.saab0018.doorsopenottawa.model.Building;
 
 import static com.algonquincollege.saab0018.doorsopenottawa.MainActivity.IMAGE_BASE_URL;
@@ -41,14 +42,14 @@ public class BuildingAdapter extends ArrayAdapter<Building> implements Filterabl
 
     private LruCache<Integer, Bitmap> imageCache;
 
-    int[] color_arr={Color.BLUE,Color.CYAN,Color.DKGRAY,Color.GREEN,Color.RED};
+    int[] color_arr = {Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GREEN, Color.RED};
 
 
     public BuildingAdapter(Context context, int resource, List<Building> objects) {
         super(context, resource, objects);
         this.context = context;
         this.buildingList = objects;
-        final int maxMemory = (int)(Runtime.getRuntime().maxMemory()/1024);
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;
         imageCache = new LruCache<>(cacheSize);
     }
@@ -74,8 +75,7 @@ public class BuildingAdapter extends ArrayAdapter<Building> implements Filterabl
             Log.i("BUILDINGS", building.getName() + "\tbitmap in memory");
             ImageView image = (ImageView) view.findViewById(R.id.imageView1);
             image.setImageBitmap(building.getBitmap());
-        }
-        else{
+        } else {
             Log.i("BUILDINGS", building.getName() + "\tbitmap using AsyncTask");
             BuildingAndView container = new BuildingAndView();
             container.building = building;
@@ -87,8 +87,13 @@ public class BuildingAdapter extends ArrayAdapter<Building> implements Filterabl
         return view;
     }
 
+    @Override
+    public int getCount() {
+        return buildingList.size();
+    }
+
     //container for AsyncTask params
-    private class BuildingAndView{
+    private class BuildingAndView {
         public Building building;
         public View view;
         public Bitmap bitmap;
@@ -121,10 +126,10 @@ public class BuildingAdapter extends ArrayAdapter<Building> implements Filterabl
 
         @Override
         protected void onPostExecute(BuildingAndView result) {
-            if(result==null) return;
+            if (result == null) return;
             ImageView image = (ImageView) result.view.findViewById(R.id.imageView1);
             image.setImageBitmap(result.bitmap);
-           // result.building.setBitmap(result.bitmap);
+            // result.building.setBitmap(result.bitmap);
             imageCache.put(result.building.getBuildingId(), result.bitmap);
         }
     }
@@ -137,38 +142,45 @@ public class BuildingAdapter extends ArrayAdapter<Building> implements Filterabl
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-
-                buildingList = (List<Building>) results.values;
-                notifyDataSetChanged();
+                if(constraint.length()>0){
+                    buildingList = (List<Building>) results.values;
+                    notifyDataSetChanged();
+                }
             }
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-
                 FilterResults results = new FilterResults();
-                ArrayList<String> FilteredArrayNames = new ArrayList<>();
-
-                // perform your search here using the searchConstraint String.
-
-                constraint = constraint.toString().toLowerCase();
-                for (int i = 0; i < buildingList.size(); i++) {
-                    String dataNames = buildingList.get(i).getName();
-                    if (dataNames.toLowerCase().startsWith(constraint.toString()))  {
-                        FilteredArrayNames.add(dataNames);
+                ArrayList<Building> FilteredArrayNames = new ArrayList<>();
+                if (constraint.length() > 0) {
+                    // perform your search here using the searchConstraint String.
+                    constraint = constraint.toString().toLowerCase();
+                    for (int i = 0; i < buildingList.size(); i++) {
+                        String dataNames = buildingList.get(i).getName();
+                        if (dataNames.toLowerCase().startsWith(constraint.toString())) {
+                            FilteredArrayNames.add(buildingList.get(i));
+                        }
                     }
+                    results.count = FilteredArrayNames.size();
+                    results.values = FilteredArrayNames;
+                }
+                else{
+                    results.count = buildingList.size();
+                    results.values = buildingList.size();
                 }
 
-                results.count = FilteredArrayNames.size();
-                results.values = FilteredArrayNames;
+
+
+
                 Log.e("VALUES", results.values.toString());
 
                 return results;
+
             }
         };
 
         return filter;
     }
-
 
 
 }
