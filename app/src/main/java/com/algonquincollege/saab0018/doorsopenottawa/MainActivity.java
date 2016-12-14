@@ -13,7 +13,7 @@
 package com.algonquincollege.saab0018.doorsopenottawa;
 
 
-
+import java.lang.Math;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -274,7 +274,7 @@ public class MainActivity extends ListActivity {  //AdapterView.OnItemClickListe
                         @Override
                         public int compare( Building lhs, Building rhs ) {
                             //  Log.i( "PLANETS", "Sorting planets by name (z-a)" );
-                            return lhs.getName().toLowerCase().compareTo( rhs.getName().toLowerCase() );
+                            return lhs.getName().toUpperCase().compareTo( rhs.getName().toUpperCase() );
                         }
                     }));
                     break;
